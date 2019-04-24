@@ -211,16 +211,9 @@ monitoringDidFailForRegion:(nullable CLRegion *)region
             NSMutableArray *list = [_dataDict objectForKey:uuid];
             if (!list) {
                 list = [NSMutableArray array];
-                [list addObject:beacon];
-            } else {
-                for (CLBeacon *_beacon in list) {
-                    if ([_beacon.proximityUUID.UUIDString isEqualToString:beacon.proximityUUID.UUIDString] && [_beacon.major isEqualToNumber:beacon.major] && [_beacon.minor isEqualToNumber:beacon.minor]) {
-                        continue;
-                    } else {
-                        [list addObject:beacon];
-                    }
-                }
             }
+            [list removeAllObjects];
+            [list addObject:beacon];
             //
             [_dataDict setObject:list forKey:uuid];
         }
